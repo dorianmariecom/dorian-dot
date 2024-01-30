@@ -10,11 +10,11 @@ end
 dir = ARGV[0]
 force = ARGV[1] == "--force"
 files = Dir.glob("#{dir}/**/*", File::FNM_DOTMATCH)
-files = files.grep_v(/\/.git\//).grep_v(/\/\.$/).grep_v(/\/\.\.$/)
+files = files.grep_v(%r{/.git/}).grep_v(%r{/\.$}).grep_v(%r{/\.\.$})
 files = files.select { |file| File.file?(file) }
 files.each do |file|
   file = file.gsub("//", "/")
-  barefile = file.gsub(dir, "").gsub(/^\//, "")
+  barefile = file.gsub(dir, "").gsub(%r{^/}, "")
   homefile = "#{Dir.home}/#{barefile}".gsub("//", "/")
 
   if File.exist?(homefile) || File.symlink?(homefile)
