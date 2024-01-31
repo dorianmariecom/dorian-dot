@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require "fileutils"
 
-if ARGV.size < 1 || ARGV.size > 2 || ARGV[0] == "--help" || ARGV[0] == "-h"
+if ARGV.empty? || ARGV.size > 2 || ARGV[0] == "--help" || ARGV[0] == "-h"
   puts "USAGE: dot DIRECTORY [--force]"
   exit
 end
