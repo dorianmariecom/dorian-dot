@@ -3,35 +3,19 @@
 
 require "fileutils"
 
-if ARGV.empty? || ARGV.size > 2 || ARGV[0] == "--help" || ARGV[0] == "-h"
-  puts "USAGE: dot DIRECTORY [--force]"
+if ARGV.size != 1
+  puts "USAGE: dot DIRECTORY"
   exit
 end
 
 dir = ARGV[0]
-force = ARGV[1] == "--force"
 files = Dir.glob("#{dir}/**/*", File::FNM_DOTMATCH)
-files = files.grep_v(%r{/.git/}).grep_v(%r{/\.$}).grep_v(%r{/\.\.$})
+files = files.grep_v(%r{/\.git/})
 files = files.select { |file| File.file?(file) }
 files.each do |file|
   file = file.gsub("//", "/")
   barefile = file.gsub(dir, "").gsub(%r{^/}, "")
   homefile = "#{Dir.home}/#{barefile}".gsub("//", "/")
-
-  if File.exist?(homefile) || File.symlink?(homefile)
-    if force
-      FileUtils.rm(homefile)
-    else
-      print "#{homefile} exists, delete? (y/N) "
-      answer = $stdin.gets.strip[0].to_s.downcase
-
-      if answer == "y"
-        FileUtils.rm(homefile)
-      else
-        exit
-      end
-    end
-  end
-
-  FileUtils.ln_s(file, homefile, verbose: true)
+  File.delete(homefile) if File.exist?(homefile) || File.symlink?(homefile)
+  FileUtils.ln_s(File.expand_path(file), homefile, verbose: true)
 end
