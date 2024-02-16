@@ -2,20 +2,19 @@
 # frozen_string_literal: true
 
 require "fileutils"
+require "git"
 
 if ARGV.size != 1
   puts "USAGE: dot DIRECTORY"
   exit
 end
 
-dir = ARGV[0]
-files = Dir.glob("#{dir}/**/*", File::FNM_DOTMATCH)
-files = files.grep_v(%r{/\.git/})
-files = files.select { |file| File.file?(file) }
-files.each do |file|
-  file = file.gsub("//", "/")
-  barefile = file.gsub(dir, "").gsub(%r{^/}, "")
-  homefile = "#{Dir.home}/#{barefile}".gsub("//", "/")
-  File.delete(homefile) if File.exist?(homefile) || File.symlink?(homefile)
-  FileUtils.ln_s(File.expand_path(file), homefile, verbose: true)
-end
+Git
+  .open(ARGV.first)
+  .ls_files
+  .map(&:first)
+  .each do |file|
+    homefile = "#{Dir.home}/#{file}"
+    File.delete(homefile) if File.exist?(homefile) || File.symlink?(homefile)
+    FileUtils.ln_s(File.expand_path(file), homefile, verbose: true)
+  end
