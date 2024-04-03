@@ -12,11 +12,12 @@ end
 IGNORE_FILE = File.expand_path("#{ARGV.first.chomp("/")}/.dotignore")
 IGNORE_CONTENT = File.exist?(IGNORE_FILE) ? File.read(IGNORE_FILE) : ""
 
-IGNORE_PATTERNS = IGNORE_CONTENT.lines.map(&:strip).reject do |line|
-  line.empty? || line.start_with?("#")
-end.map do |pattern|
-  Regexp.new("\\A#{pattern}\\z")
-end
+IGNORE_PATTERNS =
+  IGNORE_CONTENT
+    .lines
+    .map(&:strip)
+    .reject { |line| line.empty? || line.start_with?("#") }
+    .map { |pattern| Regexp.new("\\A#{pattern}\\z") }
 
 def ignore?(path)
   IGNORE_PATTERNS.any? { |pattern| pattern.match?(path) }
@@ -28,6 +29,7 @@ Git
   .map(&:first)
   .each do |file|
     next if ignore?(file)
+
     homefile = "#{Dir.home}/#{file}"
     dotfile = File.expand_path("#{ARGV.first.chomp("/")}/#{file}")
     File.delete(homefile) if File.exist?(homefile) || File.symlink?(homefile)

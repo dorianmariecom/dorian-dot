@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 require "securerandom"
 require "tmpdir"
@@ -18,8 +20,20 @@ RSpec.describe "dot" do
     expect(File.symlink?(homefile)).to eq(true)
     expect(File.readlink(homefile)).to eq(tempfile.path)
   ensure
-    File.delete(homefile) rescue nil
-    File.delete(tempfile) rescue nil
-    Dir.delete(tempdir) rescue nil
+    begin
+      File.delete(homefile)
+    rescue StandardError
+      nil
+    end
+    begin
+      File.delete(tempfile)
+    rescue StandardError
+      nil
+    end
+    begin
+      Dir.delete(tempdir)
+    rescue StandardError
+      nil
+    end
   end
 end
