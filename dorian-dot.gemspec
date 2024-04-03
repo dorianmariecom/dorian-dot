@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = "dorian-dot"
-  s.version = "0.5.0"
+  s.version = "0.5.1"
   s.summary = "Links dot files e.g. `dot ~/src/dotfiles`"
   s.description = "#{s.summary}\n\nUSAGE: dot DIRECTORY"
   s.authors = ["Dorian Marié"]
@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.license = "MIT"
   s.metadata = { "rubygems_mfa_required" => "true" }
   s.add_dependency "git", "~> 1"
+  s.required_ruby_version = ">= 3.3.0"
 end
