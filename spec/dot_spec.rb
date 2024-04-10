@@ -28,8 +28,20 @@ RSpec.describe "dot" do
     expect(File.readlink(nested_homefile)).to eq(nested_tempfile.path)
     expect(File.directory?(nested_homedir)).to eq(true)
   ensure
-    File.delete(homefile) rescue StandardError
-    FileUtils.rm_r(nested_homedir) rescue StandardError
-    FileUtils.rm_r(tempdir) rescue StandardError
+    begin
+      File.delete(homefile)
+    rescue StandardError
+      StandardError
+    end
+    begin
+      FileUtils.rm_r(nested_homedir)
+    rescue StandardError
+      StandardError
+    end
+    begin
+      FileUtils.rm_r(tempdir)
+    rescue StandardError
+      StandardError
+    end
   end
 end
