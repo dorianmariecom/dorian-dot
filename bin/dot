@@ -4,9 +4,8 @@
 require "fileutils"
 require "git"
 
-if ARGV.size != 1
-  puts "USAGE: dot DIRECTORY"
-  exit
+if ARGV.size != 1 || ARGV.first == "--help" || ARGV,first == "-h"
+  abort "USAGE: dot DIRECTORY"
 end
 
 IGNORE_FILE = File.expand_path("#{ARGV.first.chomp("/")}/.dotignore")
