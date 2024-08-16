@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dorian-dot (0.7.1)
+    dorian-dot (0.7.2)
       git
 
 GEM
