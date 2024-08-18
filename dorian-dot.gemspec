@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = "dorian-dot"
-  s.version = "0.7.2"
+  s.version = "0.7.3"
   s.summary = "links dot files"
   s.description = s.summary
   s.authors = ["Dorian Marié"]
