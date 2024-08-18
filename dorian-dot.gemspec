@@ -3,8 +3,8 @@
 Gem::Specification.new do |s|
   s.name = "dorian-dot"
   s.version = "0.7.2"
-  s.summary = "Links dot files e.g. `dot ~/src/dotfiles`"
-  s.description = "#{s.summary}\n\nUSAGE: dot DIRECTORY"
+  s.summary = "links dot files"
+  s.description = s.summary
   s.authors = ["Dorian Marié"]
   s.email = "dorian@dorianmarie.com"
   s.files = ["bin/dot"]
