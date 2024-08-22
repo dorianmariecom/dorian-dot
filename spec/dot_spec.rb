@@ -31,17 +31,17 @@ RSpec.describe "dot" do
     begin
       File.delete(homefile)
     rescue StandardError
-      StandardError
+      nil
     end
     begin
       FileUtils.rm_r(nested_homedir)
     rescue StandardError
-      StandardError
+      nil
     end
     begin
       FileUtils.rm_r(tempdir)
     rescue StandardError
-      StandardError
+      nil
     end
   end
 end
