@@ -4,7 +4,7 @@
 require "fileutils"
 require "git"
 
-if ARGV.size != 1 || ARGV.first == "--help" || ARGV,first == "-h"
+if ARGV.size != 1 || ARGV.first == "--help" || ARGV.first == "-h"
   abort "USAGE: dot DIRECTORY"
 end
 
