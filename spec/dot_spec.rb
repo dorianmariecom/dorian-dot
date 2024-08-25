@@ -22,11 +22,11 @@ RSpec.describe "dot" do
 
     `bin/dot #{tempdir}`
 
-    expect(File.symlink?(homefile)).to eq(true)
+    expect(File.symlink?(homefile)).to be(true)
     expect(File.readlink(homefile)).to eq(tempfile.path)
-    expect(File.symlink?(nested_homefile)).to eq(true)
+    expect(File.symlink?(nested_homefile)).to be(true)
     expect(File.readlink(nested_homefile)).to eq(nested_tempfile.path)
-    expect(File.directory?(nested_homedir)).to eq(true)
+    expect(File.directory?(nested_homedir)).to be(true)
   ensure
     begin
       File.delete(homefile)
