@@ -1,23 +1,36 @@
 # `dorian-dot`
 
-Links dot files
+Symlink tracked dotfiles into your home directory.
 
-e.g. `dot ~/src/dotfiles`
-
-### Install
+## Install
 
 ```bash
 gem install dorian-dot
 ```
 
-Or as part of my other gems:
+Also included in the aggregate gem:
 
 ```bash
 gem install dorian
 ```
 
-### Usage
+## Usage
 
+```bash
+dot [dotfiles-repo]
 ```
-dot ~/src/dotfiles --force
+
+Run `dot -h` for generated option details and `dot -v` for the installed version.
+
+## Notes
+
+- Defaults to the current directory. Reads `.dotignore` patterns from the dotfiles repo when present.
+- Existing home files or symlinks at target paths are deleted before new symlinks are created.
+
+## Examples
+
+### Link a dotfiles repo
+
+```bash
+dot ~/src/dotfiles
 ```
